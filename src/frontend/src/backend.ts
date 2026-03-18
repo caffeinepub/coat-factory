@@ -89,78 +89,93 @@ export class ExternalBlob {
         return this;
     }
 }
-export interface Product {
+export interface Car {
     id: bigint;
-    name: string;
+    model: string;
+    make: string;
+    year: bigint;
     description: string;
-    imageUrl: string;
     category: string;
-    price: number;
+    priceUSD: bigint;
+    horsepower: bigint;
+    engine: string;
+}
+export interface Inquiry {
+    id: bigint;
+    carId: bigint;
+    name: string;
+    email: string;
+    message: string;
+    timestamp: bigint;
 }
 export interface backendInterface {
-    getCoatByCategory(category: string): Promise<Array<Product>>;
-    getCoatById(id: bigint): Promise<Product>;
-    listCoats(): Promise<Array<Product>>;
-    submitContactForm(name: string, email: string, message: string, timestamp: bigint): Promise<bigint>;
+    getCar(id: bigint): Promise<Car | null>;
+    getCars(): Promise<Array<Car>>;
+    getInquiries(): Promise<Array<Inquiry>>;
+    submitInquiry(name: string, email: string, message: string, carId: bigint, timestamp: bigint): Promise<bigint>;
 }
+import type { Car as _Car } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
-    async getCoatByCategory(arg0: string): Promise<Array<Product>> {
+    async getCar(arg0: bigint): Promise<Car | null> {
         if (this.processError) {
             try {
-                const result = await this.actor.getCoatByCategory(arg0);
+                const result = await this.actor.getCar(arg0);
+                return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getCar(arg0);
+            return from_candid_opt_n1(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getCars(): Promise<Array<Car>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getCars();
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getCoatByCategory(arg0);
+            const result = await this.actor.getCars();
             return result;
         }
     }
-    async getCoatById(arg0: bigint): Promise<Product> {
+    async getInquiries(): Promise<Array<Inquiry>> {
         if (this.processError) {
             try {
-                const result = await this.actor.getCoatById(arg0);
+                const result = await this.actor.getInquiries();
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.getCoatById(arg0);
+            const result = await this.actor.getInquiries();
             return result;
         }
     }
-    async listCoats(): Promise<Array<Product>> {
+    async submitInquiry(arg0: string, arg1: string, arg2: string, arg3: bigint, arg4: bigint): Promise<bigint> {
         if (this.processError) {
             try {
-                const result = await this.actor.listCoats();
+                const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3, arg4);
                 return result;
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
-            const result = await this.actor.listCoats();
+            const result = await this.actor.submitInquiry(arg0, arg1, arg2, arg3, arg4);
             return result;
         }
     }
-    async submitContactForm(arg0: string, arg1: string, arg2: string, arg3: bigint): Promise<bigint> {
-        if (this.processError) {
-            try {
-                const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3);
-                return result;
-            } catch (e) {
-                this.processError(e);
-                throw new Error("unreachable");
-            }
-        } else {
-            const result = await this.actor.submitContactForm(arg0, arg1, arg2, arg3);
-            return result;
-        }
-    }
+}
+function from_candid_opt_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_Car]): Car | null {
+    return value.length === 0 ? null : value[0];
 }
 export interface CreateActorOptions {
     agent?: Agent;

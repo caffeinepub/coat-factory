@@ -7,17 +7,28 @@ export interface None {
     __kind__: "None";
 }
 export type Option<T> = Some<T> | None;
-export interface Product {
+export interface Car {
     id: bigint;
-    name: string;
+    model: string;
+    make: string;
+    year: bigint;
     description: string;
-    imageUrl: string;
     category: string;
-    price: number;
+    priceUSD: bigint;
+    horsepower: bigint;
+    engine: string;
+}
+export interface Inquiry {
+    id: bigint;
+    carId: bigint;
+    name: string;
+    email: string;
+    message: string;
+    timestamp: bigint;
 }
 export interface backendInterface {
-    getCoatByCategory(category: string): Promise<Array<Product>>;
-    getCoatById(id: bigint): Promise<Product>;
-    listCoats(): Promise<Array<Product>>;
-    submitContactForm(name: string, email: string, message: string, timestamp: bigint): Promise<bigint>;
+    getCar(id: bigint): Promise<Car | null>;
+    getCars(): Promise<Array<Car>>;
+    getInquiries(): Promise<Array<Inquiry>>;
+    submitInquiry(name: string, email: string, message: string, carId: bigint, timestamp: bigint): Promise<bigint>;
 }

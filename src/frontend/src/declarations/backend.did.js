@@ -8,21 +8,32 @@
 
 import { IDL } from '@icp-sdk/core/candid';
 
-export const Product = IDL.Record({
+export const Car = IDL.Record({
   'id' : IDL.Nat,
-  'name' : IDL.Text,
+  'model' : IDL.Text,
+  'make' : IDL.Text,
+  'year' : IDL.Nat,
   'description' : IDL.Text,
-  'imageUrl' : IDL.Text,
   'category' : IDL.Text,
-  'price' : IDL.Float64,
+  'priceUSD' : IDL.Nat,
+  'horsepower' : IDL.Nat,
+  'engine' : IDL.Text,
+});
+export const Inquiry = IDL.Record({
+  'id' : IDL.Nat,
+  'carId' : IDL.Nat,
+  'name' : IDL.Text,
+  'email' : IDL.Text,
+  'message' : IDL.Text,
+  'timestamp' : IDL.Int,
 });
 
 export const idlService = IDL.Service({
-  'getCoatByCategory' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
-  'getCoatById' : IDL.Func([IDL.Nat], [Product], ['query']),
-  'listCoats' : IDL.Func([], [IDL.Vec(Product)], ['query']),
-  'submitContactForm' : IDL.Func(
-      [IDL.Text, IDL.Text, IDL.Text, IDL.Int],
+  'getCar' : IDL.Func([IDL.Nat], [IDL.Opt(Car)], ['query']),
+  'getCars' : IDL.Func([], [IDL.Vec(Car)], ['query']),
+  'getInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
+  'submitInquiry' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Int],
       [IDL.Nat],
       [],
     ),
@@ -31,21 +42,32 @@ export const idlService = IDL.Service({
 export const idlInitArgs = [];
 
 export const idlFactory = ({ IDL }) => {
-  const Product = IDL.Record({
+  const Car = IDL.Record({
     'id' : IDL.Nat,
-    'name' : IDL.Text,
+    'model' : IDL.Text,
+    'make' : IDL.Text,
+    'year' : IDL.Nat,
     'description' : IDL.Text,
-    'imageUrl' : IDL.Text,
     'category' : IDL.Text,
-    'price' : IDL.Float64,
+    'priceUSD' : IDL.Nat,
+    'horsepower' : IDL.Nat,
+    'engine' : IDL.Text,
+  });
+  const Inquiry = IDL.Record({
+    'id' : IDL.Nat,
+    'carId' : IDL.Nat,
+    'name' : IDL.Text,
+    'email' : IDL.Text,
+    'message' : IDL.Text,
+    'timestamp' : IDL.Int,
   });
   
   return IDL.Service({
-    'getCoatByCategory' : IDL.Func([IDL.Text], [IDL.Vec(Product)], ['query']),
-    'getCoatById' : IDL.Func([IDL.Nat], [Product], ['query']),
-    'listCoats' : IDL.Func([], [IDL.Vec(Product)], ['query']),
-    'submitContactForm' : IDL.Func(
-        [IDL.Text, IDL.Text, IDL.Text, IDL.Int],
+    'getCar' : IDL.Func([IDL.Nat], [IDL.Opt(Car)], ['query']),
+    'getCars' : IDL.Func([], [IDL.Vec(Car)], ['query']),
+    'getInquiries' : IDL.Func([], [IDL.Vec(Inquiry)], ['query']),
+    'submitInquiry' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Text, IDL.Nat, IDL.Int],
         [IDL.Nat],
         [],
       ),

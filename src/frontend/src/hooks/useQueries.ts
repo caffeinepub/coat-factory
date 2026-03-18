@@ -1,94 +1,94 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import type { Product } from "../backend.d";
+import type { Car } from "../backend.d";
 import { useActor } from "./useActor";
 
-// Fallback sample products if backend returns empty
-const FALLBACK_PRODUCTS: Product[] = [
+// Fallback sample cars if backend returns empty
+const FALLBACK_CARS: Car[] = [
   {
     id: BigInt(1),
-    name: "Merino Wool Overcoat",
+    make: "Lamborghini",
+    model: "Huracán EVO Spyder",
+    year: BigInt(2024),
     description:
-      "An impeccably tailored overcoat crafted from 100% Italian merino wool. The single-breasted silhouette features notch lapels and a hand-stitched chest pocket. Perfect for the discerning professional who demands elegance without compromise.",
-    imageUrl: "",
-    category: "Classic",
-    price: 485,
+      "The Huracán EVO Spyder represents the pinnacle of Lamborghini engineering — a naturally aspirated V10 masterpiece wrapped in carbon fiber. With an open-air cabin, you experience every decibel of its intoxicating 8,000 RPM scream. Mid-engine balance and rear-wheel steering make it an extension of the driver's will.",
+    category: "Supercar",
+    priceUSD: BigInt(285000),
+    horsepower: BigInt(631),
+    engine: "5.2L V10 Naturally Aspirated",
   },
   {
     id: BigInt(2),
-    name: "Heritage Trench Coat",
+    make: "Ferrari",
+    model: "SF90 Stradale",
+    year: BigInt(2024),
     description:
-      "Inspired by the iconic British military design, this double-breasted trench coat features storm flaps, epaulettes, and a classic belted waist. Crafted from water-resistant gabardine for lasting protection and timeless style.",
-    imageUrl: "",
-    category: "Classic",
-    price: 395,
+      "Ferrari's most powerful road car to date fuses a twin-turbocharged V8 with three electric motors for a breathtaking hybrid powertrain. The SF90 Stradale delivers hypercar performance in a sleek grand tourer silhouette — 0 to 60 mph in just 2.5 seconds. Prancing Horse excellence redefined.",
+    category: "Supercar",
+    priceUSD: BigInt(507000),
+    horsepower: BigInt(986),
+    engine: "4.0L Twin-Turbo V8 + 3 Electric Motors",
   },
   {
     id: BigInt(3),
-    name: "Camel Hair Wrap Coat",
+    make: "Rolls Royce",
+    model: "Phantom Series II",
+    year: BigInt(2024),
     description:
-      "Luxuriously soft camel hair blend in a relaxed, wrap-front silhouette. The fluid drape and oversized fit create an effortlessly chic aesthetic. An investment piece that transcends seasonal trends.",
-    imageUrl: "",
-    category: "Classic",
-    price: 560,
+      "The Rolls-Royce Phantom remains the uncompromising measure of luxury motoring. Bespoke from first sketch to final stitch, the Phantom wraps its occupants in a near-silent sanctuary of hand-stitched leather, polished wood veneers, and starlight headliner. The pinnacle of automotive refinement.",
+    category: "Ultra Luxury",
+    priceUSD: BigInt(460000),
+    horsepower: BigInt(563),
+    engine: "6.75L Twin-Turbo V12",
   },
   {
     id: BigInt(4),
-    name: "Arctic Puffer Jacket",
+    make: "Bentley",
+    model: "Continental GT Speed",
+    year: BigInt(2024),
     description:
-      "Engineered for extreme cold, this premium down puffer jacket features 800-fill power goose down and a water-resistant ripstop shell. Internal storm guard and cinchable hem seal out winter's harshest conditions.",
-    imageUrl: "",
-    category: "Winter",
-    price: 320,
+      "The Continental GT Speed is a grand tourer without compromise. A hand-assembled W12 engine catapults this two-tonne icon to 60 mph in 3.5 seconds, while the sumptuous cabin envelopes passengers in quilted leather and burr walnut. Beautiful, powerful, effortlessly capable.",
+    category: "Grand Tourer",
+    priceUSD: BigInt(284000),
+    horsepower: BigInt(650),
+    engine: "6.0L Twin-Turbo W12",
   },
   {
     id: BigInt(5),
-    name: "Naval Peacoat",
+    make: "Porsche",
+    model: "911 GT3 RS",
+    year: BigInt(2023),
     description:
-      "A refined interpretation of the classic naval peacoat. Double-breasted with broad lapels and anchor-embossed buttons, this heavy wool blend piece exudes authoritative maritime style. Fully lined with a plaid wool interior.",
-    imageUrl: "",
-    category: "Classic",
-    price: 340,
+      "The 911 GT3 RS is motorsport distilled into a road-legal weapon. Its flat-six engine screams to 9,000 RPM while an aerodynamic package generating 860kg of downforce keeps all that fury planted. This is Porsche at its most visceral — a driver's car in its purest form.",
+    category: "Sports Car",
+    priceUSD: BigInt(225000),
+    horsepower: BigInt(518),
+    engine: "4.0L Flat-Six Naturally Aspirated",
   },
   {
     id: BigInt(6),
-    name: "Alpine Expedition Parka",
+    make: "McLaren",
+    model: "720S Performance",
+    year: BigInt(2024),
     description:
-      "Built for serious adventurers, this insulated parka features a detachable faux fur-trimmed hood, multiple security pockets, and sealed seams. Combines expedition-grade performance with contemporary urban aesthetics.",
-    imageUrl: "",
-    category: "Winter",
-    price: 410,
-  },
-  {
-    id: BigInt(7),
-    name: "Satin Bomber Jacket",
-    description:
-      "A sleek take on the classic MA-1 bomber. The premium satin shell catches light beautifully while ribbed cuffs and hem provide a clean, structured silhouette. Effortlessly bridges streetwear and refined casual.",
-    imageUrl: "",
-    category: "Casual",
-    price: 245,
-  },
-  {
-    id: BigInt(8),
-    name: "Urban Raincoat",
-    description:
-      "Designed for the city dweller who refuses to sacrifice style for function. This packable raincoat features fully taped seams, a concealed hood, and a matte finish. Folds into its own pocket for easy transport.",
-    imageUrl: "",
-    category: "Casual",
-    price: 275,
+      "The McLaren 720S rewrote the rules of supercar dynamics with its ultra-lightweight carbon fiber MonoCell II chassis and aggressive aerodynamic stance. Twin turbos develop thrust with barely a breath of lag, while Proactive Chassis Control II delivers a ride quality that defies its track performance.",
+    category: "Supercar",
+    priceUSD: BigInt(318000),
+    horsepower: BigInt(710),
+    engine: "4.0L Twin-Turbo V8",
   },
 ];
 
-export function useListCoats() {
+export function useGetCars() {
   const { actor, isFetching } = useActor();
-  return useQuery<Product[]>({
-    queryKey: ["coats"],
+  return useQuery<Car[]>({
+    queryKey: ["cars"],
     queryFn: async () => {
-      if (!actor) return FALLBACK_PRODUCTS;
+      if (!actor) return FALLBACK_CARS;
       try {
-        const result = await actor.listCoats();
-        return result.length > 0 ? result : FALLBACK_PRODUCTS;
+        const result = await actor.getCars();
+        return result.length > 0 ? result : FALLBACK_CARS;
       } catch {
-        return FALLBACK_PRODUCTS;
+        return FALLBACK_CARS;
       }
     },
     enabled: !isFetching,
@@ -96,39 +96,23 @@ export function useListCoats() {
   });
 }
 
-export function useCoatsByCategory(category: string) {
-  const { actor, isFetching } = useActor();
-  return useQuery<Product[]>({
-    queryKey: ["coats", "category", category],
-    queryFn: async () => {
-      if (!actor)
-        return FALLBACK_PRODUCTS.filter((p) => p.category === category);
-      try {
-        const result = await actor.getCoatByCategory(category);
-        return result;
-      } catch {
-        return FALLBACK_PRODUCTS.filter((p) => p.category === category);
-      }
-    },
-    enabled: !!actor && !isFetching,
-  });
-}
-
-export function useSubmitContactForm() {
+export function useSubmitInquiry() {
   const { actor } = useActor();
   return useMutation({
     mutationFn: async ({
       name,
       email,
       message,
+      carId,
     }: {
       name: string;
       email: string;
       message: string;
+      carId: bigint;
     }) => {
-      if (!actor) throw new Error("Actor not available");
       const timestamp = BigInt(Date.now());
-      return actor.submitContactForm(name, email, message, timestamp);
+      if (!actor) throw new Error("Actor not available");
+      return actor.submitInquiry(name, email, message, carId, timestamp);
     },
   });
 }

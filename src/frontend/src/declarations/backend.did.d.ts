@@ -10,19 +10,33 @@ import type { ActorMethod } from '@icp-sdk/core/agent';
 import type { IDL } from '@icp-sdk/core/candid';
 import type { Principal } from '@icp-sdk/core/principal';
 
-export interface Product {
+export interface Car {
   'id' : bigint,
-  'name' : string,
+  'model' : string,
+  'make' : string,
+  'year' : bigint,
   'description' : string,
-  'imageUrl' : string,
   'category' : string,
-  'price' : number,
+  'priceUSD' : bigint,
+  'horsepower' : bigint,
+  'engine' : string,
+}
+export interface Inquiry {
+  'id' : bigint,
+  'carId' : bigint,
+  'name' : string,
+  'email' : string,
+  'message' : string,
+  'timestamp' : bigint,
 }
 export interface _SERVICE {
-  'getCoatByCategory' : ActorMethod<[string], Array<Product>>,
-  'getCoatById' : ActorMethod<[bigint], Product>,
-  'listCoats' : ActorMethod<[], Array<Product>>,
-  'submitContactForm' : ActorMethod<[string, string, string, bigint], bigint>,
+  'getCar' : ActorMethod<[bigint], [] | [Car]>,
+  'getCars' : ActorMethod<[], Array<Car>>,
+  'getInquiries' : ActorMethod<[], Array<Inquiry>>,
+  'submitInquiry' : ActorMethod<
+    [string, string, string, bigint, bigint],
+    bigint
+  >,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

@@ -16,8 +16,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ["Playfair Display", "Georgia", "serif"],
-        sans: ["Sora", "system-ui", "sans-serif"],
+        display: ["Fraunces", "Georgia", "serif"],
+        sans: ["Cabinet Grotesk", "system-ui", "sans-serif"],
       },
       colors: {
         border: "oklch(var(--border))",
@@ -53,10 +53,10 @@ export default {
           DEFAULT: "oklch(var(--card))",
           foreground: "oklch(var(--card-foreground))",
         },
-        gold: {
-          light: "oklch(0.85 0.1 75)",
-          DEFAULT: "oklch(0.74 0.12 75)",
-          dark: "oklch(0.6 0.1 75)",
+        champagne: {
+          light: "oklch(0.90 0.10 85)",
+          DEFAULT: "oklch(0.78 0.11 82)",
+          dark: "oklch(0.62 0.09 80)",
         },
         chart: {
           1: "oklch(var(--chart-1))",
@@ -79,14 +79,14 @@ export default {
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        sm: "0",
       },
       boxShadow: {
-        xs: "0 1px 2px 0 rgba(0,0,0,0.05)",
-        gold: "0 0 0 1px oklch(0.74 0.12 75 / 0.3), 0 4px 24px oklch(0.74 0.12 75 / 0.08)",
-        "gold-lg": "0 0 0 1px oklch(0.74 0.12 75 / 0.4), 0 8px 48px oklch(0.74 0.12 75 / 0.15)",
-        card: "0 2px 16px oklch(0 0 0 / 0.4)",
-        "card-hover": "0 8px 48px oklch(0 0 0 / 0.6)",
+        champagne: "0 0 0 1px oklch(0.78 0.11 82 / 0.3), 0 4px 24px oklch(0.78 0.11 82 / 0.1)",
+        "champagne-lg": "0 0 0 1px oklch(0.78 0.11 82 / 0.4), 0 8px 48px oklch(0.78 0.11 82 / 0.18)",
+        card: "0 2px 20px oklch(0 0 0 / 0.5)",
+        "card-hover": "0 12px 60px oklch(0 0 0 / 0.7), 0 0 0 1px oklch(0.78 0.11 82 / 0.15)",
+        glow: "0 0 40px oklch(0.78 0.11 82 / 0.12)",
       },
       keyframes: {
         "accordion-down": {
@@ -97,20 +97,25 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
         "fade-up": {
-          from: { opacity: "0", transform: "translateY(24px)" },
+          from: { opacity: "0", transform: "translateY(28px)" },
           to: { opacity: "1", transform: "translateY(0)" },
+        },
+        "fade-in": {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        "slide-right": {
+          from: { opacity: "0", transform: "translateX(-20px)" },
+          to: { opacity: "1", transform: "translateX(0)" },
         },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        shimmer: "shimmer 2s infinite linear",
-        "fade-up": "fade-up 0.6s ease-out forwards",
+        "fade-up": "fade-up 0.7s ease-out forwards",
+        "fade-in": "fade-in 0.5s ease-out forwards",
+        "slide-right": "slide-right 0.6s ease-out forwards",
       },
     },
   },

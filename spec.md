@@ -1,33 +1,29 @@
-# Coat Factory
+# LuxuryCars
 
 ## Current State
-New project. No existing code.
+The project currently contains a Coat Factory website with a product catalog, category filtering, product detail modals, an About section, and a contact form. This will be replaced entirely with a luxury car dealership website.
 
 ## Requested Changes (Diff)
 
 ### Add
-- Full coat factory retail website with the following pages/sections:
-  - Hero/banner section with brand name and tagline
-  - Featured collections section (e.g. Winter, Classic, Sport)
-  - Product catalog/gallery with coat listings (name, image, price, short description)
-  - Individual product detail view (expandable or modal)
-  - About Us section describing the factory/brand story
-  - Contact section with address, phone, email, and a simple contact form
+- Hero section with a full-screen cinematic banner for luxury cars
+- Car catalog/showroom displaying luxury vehicle listings with make, model, year, price, and key specs
+- Car detail view/modal with full specs (engine, horsepower, 0-60, top speed, interior features)
+- Category/brand filtering (e.g. Lamborghini, Ferrari, Rolls Royce, Bentley, Porsche)
+- Featured/highlight section showcasing a "Car of the Month" or top picks
+- About section describing the dealership (heritage, exclusivity, white-glove service)
+- Contact/Inquiry form for scheduling test drives or requesting more info
+- Navigation bar with smooth scrolling to sections
 
 ### Modify
-- N/A (new project)
+- Replace all existing coat factory content, branding, and UI with luxury car dealership content
 
 ### Remove
-- N/A (new project)
+- All coat factory product data, categories, and related UI components
 
 ## Implementation Plan
-1. Backend: Motoko canister to store coat products (id, name, description, price, category, imageUrl) and contact form submissions. Expose query functions to list products by category and get product details. Expose update function to submit contact form.
-2. Frontend: React app with:
-   - Navbar with logo and navigation links
-   - Hero section
-   - Featured collections grid
-   - Product catalog with category filter
-   - Product detail modal/drawer
-   - About Us section
-   - Contact form wired to backend
-3. Sample coat products pre-seeded in the backend or displayed as static data on the frontend.
+1. Replace backend data models: define Car type with fields (id, make, model, year, price, horsepower, engine, topSpeed, zeroToSixty, category, description, features)
+2. Backend: store sample luxury car listings; expose query to list all cars, get by id, filter by brand/category
+3. Frontend: build full-page layout with Hero, Showroom (catalog), Car Detail modal, Featured section, About, Contact/Inquiry form
+4. Implement brand filter tabs in the showroom
+5. Use high-quality imagery placeholders or generated images for each car
